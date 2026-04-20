@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NgopiKuy - Promo Spesial</title>
+
+  <link rel="stylesheet" href="promo.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+</head>
+
+<body class="bg-dark">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">NgopiKuy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="produk.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+       
+<li class="nav-item ms-lg-2">
+  <a href="Keranjang.html" class="btn btn-outline-warning position-relative" id="cartBtn">
+    <i class="bi bi-cart3"></i>
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-dark" id="cartCount" style="font-size: 0.65rem;">0</span>
+  </a>
+</li>
+
+       
+        <li class="nav-item ms-lg-3">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search menu..." id="searchInput">
+            <button class="btn btn-warning" type="button" onclick="searchMenu()">Search</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+</nav>
+
+
+<section id="promo" class="py-5">
+  <div class="container">
+
+    <!-- Heading -->
+    <div class="text-center mb-4">
+      <h2 class="text-warning fw-bold">Promo Spesial</h2>
+      <p class="text-secondary mb-0">Penawaran terbatas, jangan sampai kehabisan!</p>
+    </div>
+
+
+    <div class="text-center mb-4">
+      <p class="text-white mb-2 countdown-label">PROMO BERAKHIR DALAM</p>
+      <div class="d-inline-flex align-items-center gap-2">
+
+        <div class="text-center">
+          <div class="countdown-box bg-warning text-dark fw-bold rounded">
+            <span>08</span>
+          </div>
+          <small class="text-secondary">Jam</small>
+        </div>
+
+        <div class="text-warning fw-bold fs-3 pb-3">:</div>
+
+        <div class="text-center">
+          <div class="countdown-box bg-warning text-dark fw-bold rounded">
+            <span>45</span>
+          </div>
+          <small class="text-secondary">Menit</small>
+        </div>
+
+        <div class="text-warning fw-bold fs-3 pb-3">:</div>
+
+        <div class="text-center">
+          <div class="countdown-box bg-warning text-dark fw-bold rounded countdown-blink">
+            <span>00</span>
+          </div>
+          <small class="text-secondary">Detik</small>
+        </div>
+
+      </div>
+    </div>
+
+   
+    <div class="d-flex justify-content-center flex-wrap gap-2 mb-5">
+      <button class="btn btn-warning filter-btn active" data-filter="semua">
+        Semua Promo
+      </button>
+      <button class="btn btn-outline-warning filter-btn" data-filter="diskon">
+        Promo Ramadhan
+      </button>
+      <button class="btn btn-outline-warning filter-btn" data-filter="bonus">
+        Promo Hari Raya
+      </button>
+    </div>
+
+   
+    <div class="row g-4 justify-content-center" id="promoGrid">
+
+     
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="bonus">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">BELI 1 GRATIS 1</span>
+          <img
+            src="https://i.pinimg.com/736x/7c/ff/92/7cff9259605cabc4cc2a9e9ee37018ea.jpg"
+            class="card-img-top promo-img"
+            alt="Espresso Double Shot">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Espresso Double Shot</h5>
+            <p class="card-text text-secondary promo-desc">Beli 1 espresso, gratis 1 untuk teman kamu!</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 40.000</del>
+              <span class="text-warning fw-bold">Rp 20.000</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="diskon">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">DISKON 30%</span>
+          <img
+            src="https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg"
+            class="card-img-top promo-img"
+            alt="Matcha Latte">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Matcha Latte</h5>
+            <p class="card-text text-secondary promo-desc">Nikmati matcha premium dengan harga yang lebih hemat!</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 22.000</del>
+              <span class="text-warning fw-bold">Rp 15.400</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="diskon">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">HAPPY HOUR</span>
+          <img
+            src="https://i.pinimg.com/736x/64/5c/a4/645ca406c75f3976158a3b17a6fc03bd.jpg"
+            class="card-img-top promo-img"
+            alt="Caffe Latte">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Caffe Latte</h5>
+            <p class="card-text text-secondary promo-desc">Diskon 20% setiap hari pukul 14.00–16.00 WIB.</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 25.000</del>
+              <span class="text-warning fw-bold">Rp 20.000</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="bonus">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">BELI 2 GRATIS 1</span>
+          <img
+            src="https://i.pinimg.com/1200x/79/32/df/7932dfbef93d100f08f0b495b6b0f565.jpg"
+            class="card-img-top promo-img"
+            alt="Red Velvet Latte">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Red Velvet Latte</h5>
+            <p class="card-text text-secondary promo-desc">Beli 2 Red Velvet, gratis 1 minuman pilihan!</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 66.000</del>
+              <span class="text-warning fw-bold">Rp 44.000</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="diskon">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">DISKON 20%</span>
+          <img
+            src="https://i.pinimg.com/1200x/4e/3d/c8/4e3dc8baad6fcfe6c8e08f8d32a1ae43.jpg"
+            class="card-img-top promo-img"
+            alt="Americano">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Americano</h5>
+            <p class="card-text text-secondary promo-desc">Promo akhir pekan, hemat lebih banyak!</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 22.000</del>
+              <span class="text-warning fw-bold">Rp 17.600</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-sm-6 col-lg-4 promo-item" data-kategori="bonus">
+        <div class="card promo-card bg-dark text-white border border-secondary h-100">
+          <span class="badge bg-warning text-dark promo-badge">FREE SNACK</span>
+          <img
+            src="https://images.unsplash.com/photo-1498804103079-a6351b050096"
+            class="card-img-top promo-img"
+            alt="Cappuccino">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title fw-bold">Cappuccino</h5>
+            <p class="card-text text-secondary promo-desc">Beli cappuccino, gratis 1 snack pilihan hari ini!</p>
+            <div class="d-flex align-items-center gap-2 mt-auto mb-3">
+              <del class="text-secondary promo-price-old">Rp 30.000</del>
+              <span class="text-warning fw-bold">Rp 25.000</span>
+            </div>
+            <a href="produk.html" class="btn btn-warning w-100 fw-bold">Klaim Promo</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="text-center text-secondary py-5 d-none" id="emptyState">
+      <i class="bi bi-cup-hot fs-1 d-block mb-2"></i>
+      <p class="mb-0">Tidak ada promo pada kategori ini.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function () {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const promoItems = document.querySelectorAll('.promo-item');
+    const emptyState = document.getElementById('emptyState');
+
+    function filterPromo(kategori) {
+      let visibleCount = 0;
+
+      promoItems.forEach(function (item) {
+        const match = kategori === 'semua' || item.dataset.kategori === kategori;
+        item.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+
+      emptyState.classList.toggle('d-none', visibleCount > 0);
+    }
+
+    filterBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        filterBtns.forEach(function (b) {
+          b.classList.remove('active', 'btn-warning');
+          b.classList.add('btn-outline-warning');
+        });
+
+        btn.classList.add('active', 'btn-warning');
+        btn.classList.remove('btn-outline-warning');
+
+        filterPromo(btn.dataset.filter);
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

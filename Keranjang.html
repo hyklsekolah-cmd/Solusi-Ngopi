@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Keranjang — NgopiKuy</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+      padding-top: 70px;
+    }
+
+    /* ── Page Header ── */
+    .cart-header {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+      border-bottom: 1px solid #333;
+      padding: 2rem 0 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .cart-header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #ffc107;
+    }
+    .cart-header p {
+      color: #aaa;
+      font-size: 0.9rem;
+      margin: 0;
+    }
+
+    /* ── Cart Item Card ── */
+    .cart-item {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 12px;
+      transition: border-color .2s;
+    }
+    .cart-item:hover {
+      border-color: #ffc107;
+    }
+    .cart-item img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .cart-item .item-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #f0f0f0;
+    }
+    .cart-item .item-variant {
+      font-size: 0.78rem;
+      color: #888;
+      margin-top: 2px;
+    }
+    .cart-item .item-price {
+      color: #ffc107;
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+    .cart-item .item-subtotal {
+      font-size: 0.8rem;
+      color: #aaa;
+    }
+
+    /* ── Qty Control ── */
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 1px solid #555;
+      background: #333;
+      color: #f0f0f0;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, border-color .15s;
+      line-height: 1;
+    }
+    .qty-btn:hover {
+      background: #ffc107;
+      border-color: #ffc107;
+      color: #1a1a1a;
+    }
+    .qty-num {
+      min-width: 28px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #666;
+      font-size: 18px;
+      cursor: pointer;
+      padding: 4px 6px;
+      border-radius: 6px;
+      transition: color .15s, background .15s;
+    }
+    .btn-remove:hover {
+      color: #e74c3c;
+      background: rgba(231,76,60,0.1);
+    }
+
+    /* ── Empty State ── */
+    .empty-cart {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
+    }
+    .empty-cart i { font-size: 56px; color: #444; margin-bottom: 16px; display: block; }
+    .empty-cart h5 { color: #888; font-weight: 500; }
+
+    /* ── Promo Input ── */
+    .promo-section {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 20px;
+    }
+    .promo-section label {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 10px;
+      display: block;
+    }
+    .promo-section .input-group .form-control {
+      background: #1e1e1e;
+      border: 1px solid #444;
+      color: #f0f0f0;
+      border-radius: 8px 0 0 8px;
+    }
+    .promo-section .input-group .form-control::placeholder { color: #555; }
+    .promo-section .input-group .form-control:focus {
+      border-color: #ffc107;
+      box-shadow: none;
+      background: #1e1e1e;
+    }
+    .promo-section .btn-apply {
+      background: #ffc107;
+      border: none;
+      color: #1a1a1a;
+      font-weight: 600;
+      padding: 0 20px;
+      border-radius: 0 8px 8px 0;
+    }
+    .promo-section .btn-apply:hover { background: #e6ac00; }
+    .promo-msg { font-size: 12px; margin-top: 8px; min-height: 18px; }
+
+    /* ── Order Summary ── */
+    .summary-card {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 12px;
+      padding: 20px;
+      position: sticky;
+      top: 80px;
+    }
+    .summary-card h5 {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 16px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: #aaa;
+      margin-bottom: 10px;
+    }
+    .summary-row.discount { color: #4caf7d; }
+    .summary-row.total {
+      font-size: 16px;
+      font-weight: 700;
+      color: #f0f0f0;
+      margin-top: 4px;
+    }
+    .summary-divider {
+      border-color: #3a3a3a;
+      margin: 12px 0;
+    }
+    .btn-checkout {
+      width: 100%;
+      background: #ffc107;
+      border: none;
+      color: #1a1a1a;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px;
+      border-radius: 10px;
+      margin-top: 16px;
+      transition: background .2s, transform .1s;
+    }
+    .btn-checkout:hover { background: #e6ac00; transform: translateY(-1px); }
+    .btn-checkout:active { transform: translateY(0); }
+    .btn-checkout:disabled { background: #444; color: #777; cursor: not-allowed; transform: none; }
+
+    /* ── Payment Methods ── */
+    .payment-methods {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .pay-badge {
+      background: #1e1e1e;
+      border: 1px solid #3a3a3a;
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      color: #888;
+    }
+
+    /* ── Recommended ── */
+    .rec-card {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .2s, transform .15s;
+    }
+    .rec-card:hover { border-color: #ffc107; transform: translateY(-2px); }
+    .rec-card img { width: 100%; height: 100px; object-fit: cover; }
+    .rec-card .rec-body { padding: 10px; }
+    .rec-card .rec-name { font-size: 13px; font-weight: 600; color: #f0f0f0; }
+    .rec-card .rec-price { font-size: 12px; color: #ffc107; }
+    .rec-card .rec-add {
+      width: 100%;
+      background: none;
+      border: 1px solid #ffc107;
+      color: #ffc107;
+      border-radius: 6px;
+      font-size: 12px;
+      padding: 5px;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: background .15s, color .15s;
+    }
+    .rec-card .rec-add:hover { background: #ffc107; color: #1a1a1a; }
+
+    /* ── Section divider label ── */
+    .section-lbl {
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 14px;
+      margin-top: 28px;
+    }
+
+    /* ── Toast ── */
+    .toast-wrap {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9999;
+    }
+    .custom-toast {
+      background: #2a2a2a;
+      border: 1px solid #ffc107;
+      color: #f0f0f0;
+      border-radius: 10px;
+      padding: 12px 18px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 220px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all .25s;
+      pointer-events: none;
+    }
+    .custom-toast.show { opacity: 1; transform: translateY(0); }
+    .custom-toast i { color: #ffc107; font-size: 16px; }
+
+    /* ── Modal Checkout ── */
+    .modal-content {
+      background: #2a2a2a;
+      border: 1px solid #3a3a3a;
+      color: #f0f0f0;
+    }
+    .modal-header { border-bottom-color: #3a3a3a; }
+    .modal-footer { border-top-color: #3a3a3a; }
+    .modal-title { color: #ffc107; font-weight: 700; }
+    .order-line {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px solid #3a3a3a;
+      color: #ccc;
+    }
+    .order-line:last-child { border: none; }
+    .order-line.total-line { color: #ffc107; font-weight: 700; font-size: 16px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cart-item img { width: 64px; height: 64px; }
+      .summary-card { position: static; margin-top: 20px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- NAVBAR (sama dengan halaman utama) -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">NgopiKuy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html#home">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="produk.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html#contact">Contact</a></li>
+        <li class="nav-item ms-lg-2">
+          <a href="keranjang.html" class="btn btn-warning position-relative">
+            <i class="bi bi-cart3"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark text-warning" id="cartCount" style="font-size:0.65rem;">0</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="cart-header">
+  <div class="container">
+    <nav aria-label="breadcrumb" class="mb-2">
+      <ol class="breadcrumb" style="font-size:13px;">
+        <li class="breadcrumb-item"><a href="index.html" class="text-warning text-decoration-none">Home</a></li>
+        <li class="breadcrumb-item"><a href="produk.html" class="text-warning text-decoration-none">Menu</a></li>
+        <li class="breadcrumb-item active text-secondary">Keranjang</li>
+      </ol>
+    </nav>
+    <h1><i class="bi bi-cart3 me-2"></i>Keranjang Saya</h1>
+    <p id="headerCount">Memuat pesanan…</p>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="container pb-5">
+  <div class="row g-4">
+
+    <!-- LEFT: Items + Promo + Rekomendasi -->
+    <div class="col-lg-8">
+
+      <!-- Cart Items -->
+      <div id="cartItems"></div>
+
+      <!-- Promo -->
+      <div class="promo-section" id="promoSection" style="display:none;">
+        <label>Kode Promo</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="promoInput" placeholder="Masukkan kode promo…">
+          <button class="btn-apply" onclick="applyPromo()">Terapkan</button>
+        </div>
+        <div id="promoMsg" class="promo-msg"></div>
+      </div>
+
+      <!-- Rekomendasi -->
+      <div id="recSection" style="display:none;">
+        <div class="section-lbl">Mungkin kamu juga suka</div>
+        <div class="row g-3" id="recGrid"></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Summary -->
+    <div class="col-lg-4">
+      <div class="summary-card" id="summaryCard" style="display:none;">
+        <h5>Ringkasan Pesanan</h5>
+
+        <div id="summaryItems"></div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-row"><span>Subtotal</span><span id="sumSubtotal">Rp 0</span></div>
+        <div class="summary-row discount" id="sumDiscRow" style="display:none;">
+          <span>Diskon Promo</span><span id="sumDiscount">-Rp 0</span>
+        </div>
+        <div class="summary-row"><span>Pajak (10%)</span><span id="sumTax">Rp 0</span></div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-row total">
+          <span>Total</span>
+          <span id="sumTotal" class="text-warning">Rp 0</span>
+        </div>
+
+        <button class="btn-checkout" id="btnCheckout" onclick="showCheckoutModal()">
+          <i class="bi bi-bag-check me-2"></i>Pesan Sekarang
+        </button>
+
+        <div class="text-center mt-3" style="font-size:12px; color:#666;">
+          <i class="bi bi-shield-check me-1 text-warning"></i> Pembayaran Aman
+        </div>
+        <div class="payment-methods justify-content-center">
+          <span class="pay-badge">DANA</span>
+          <span class="pay-badge">GoPay</span>
+          <span class="pay-badge">OVO</span>
+          <span class="pay-badge">Transfer</span>
+          <span class="pay-badge">COD</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast-wrap">
+  <div class="custom-toast" id="toastEl">
+    <i class="bi bi-check-circle-fill"></i>
+    <span id="toastMsg">Item ditambahkan</span>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal fade" id="checkoutModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"><i class="bi bi-bag-check me-2"></i>Konfirmasi Pesanan</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div id="modalOrderLines"></div>
+        <hr style="border-color:#3a3a3a;">
+        <div class="order-line total-line">
+          <span>Total Pembayaran</span>
+          <span id="modalTotal">Rp 0</span>
+        </div>
+        <div class="mt-3">
+          <label style="font-size:13px; color:#888; margin-bottom:8px; display:block;">Pilih Pembayaran</label>
+          <select class="form-select" style="background:#1e1e1e; border-color:#444; color:#f0f0f0;">
+            <option>DANA</option>
+            <option>GoPay</option>
+            <option>OVO</option>
+            <option>Transfer Bank</option>
+            <option>COD (Bayar di Tempat)</option>
+          </select>
+        </div>
+        <div class="mt-3">
+          <label style="font-size:13px; color:#888; margin-bottom:8px; display:block;">Catatan Tambahan</label>
+          <textarea class="form-control" rows="2" placeholder="Contoh: Gula sedikit, es terpisah…"
+            style="background:#1e1e1e; border-color:#444; color:#f0f0f0;"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Batal</button>
+        <button type="button" class="btn btn-warning fw-bold px-4" onclick="placeOrder()">Konfirmasi Pesanan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS MODAL -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center" style="padding: 2rem;">
+      <div style="font-size:56px; color:#ffc107; margin-bottom:12px;">
+        <i class="bi bi-check-circle-fill"></i>
+      </div>
+      <h4 style="color:#f0f0f0; font-weight:700;">Pesanan Dikonfirmasi!</h4>
+      <p style="color:#888; font-size:14px; margin: 8px 0 24px;">
+        Terima kasih! Pesanan kamu sedang diproses. Estimasi siap: <strong style="color:#ffc107;">10–15 menit</strong>.
+      </p>
+      <button class="btn btn-warning fw-bold px-5" onclick="resetOrder()">Pesan Lagi</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<footer class="footer" style="background:#111; color:#aaa; padding: 2rem 0 0;">
+  <div style="max-width:1140px; margin:auto; padding:0 1rem; display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:2rem;">
+    <div>
+      <h2 style="color:#ffc107; font-size:1.3rem; margin-bottom:8px;">NgopiKuy</h2>
+      <p style="font-size:13px;">Tempat ngopi enak, nyaman, dan terjangkau untuk semua kalangan.</p>
+    </div>
+    <div>
+      <h3 style="color:#f0f0f0; font-size:0.9rem; margin-bottom:10px;">Navigasi</h3>
+      <ul style="list-style:none; padding:0; font-size:13px; line-height:2;">
+        <li><a href="index.html" style="color:#aaa; text-decoration:none;">Home</a></li>
+        <li><a href="produk.html" style="color:#aaa; text-decoration:none;">Menu</a></li>
+        <li><a href="index.html#contact" style="color:#aaa; text-decoration:none;">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="color:#f0f0f0; font-size:0.9rem; margin-bottom:10px;">Kontak</h3>
+      <p style="font-size:13px;">📍 Jl blaabla</p>
+      <p style="font-size:13px;">📞 +62 123 453 2234</p>
+      <p style="font-size:13px;">✉️ ngopikuy@gemail.com</p>
+    </div>
+  </div>
+  <div style="text-align:center; border-top:1px solid #2a2a2a; margin-top:1.5rem; padding:1rem; font-size:12px; color:#555;">
+    © 2025 NgopiKuy. All Rights Reserved.
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+
+const MENU_DATA = [
+  { id:1, name:'Espresso', variant:'Double Shot · Panas', price:20000, img:'https://i.pinimg.com/736x/7c/ff/92/7cff9259605cabc4cc2a9e9ee37018ea.jpg' },
+  { id:2, name:'Caffe Latte', variant:'Medium · Panas', price:25000, img:'https://i.pinimg.com/736x/64/5c/a4/645ca406c75f3976158a3b17a6fc03bd.jpg' },
+  { id:3, name:'Cappuccino', variant:'Medium · Panas', price:25000, img:'https://images.unsplash.com/photo-1498804103079-a6351b050096' },
+  { id:4, name:'Americano', variant:'Large · Dingin', price:22000, img:'https://i.pinimg.com/1200x/4e/3d/c8/4e3dc8baad6fcfe6c8e08f8d32a1ae43.jpg' },
+  { id:5, name:'Matcha Latte', variant:'Medium · Dingin', price:22000, img:'https://i.pinimg.com/1200x/f3/35/3d/f3353da22218a4de90629ea801d6d0ff.jpg' },
+  { id:6, name:'RedVelvet', variant:'Medium · Dingin', price:22000, img:'https://i.pinimg.com/1200x/79/32/df/7932dfbef93d100f08f0b495b6b0f565.jpg' },
+];
+
+/* Demo cart (ganti dengan localStorage jika terhubung produk.html) */
+let cart = JSON.parse(localStorage.getItem('ngopikuy_cart') || 'null') || [
+  { id:1, qty:2 },
+  { id:5, qty:1 },
+  { id:3, qty:1 },
+];
+
+let promoApplied = false;
+let discountRate = 0;
+const PROMOS = { 'KOPI20': 0.2, 'NGOPI10': 0.1, 'MATCHA15': 0.15 };
+
+/* ─── Helpers ─── */
+const fmt = n => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+const getMenu = id => MENU_DATA.find(m => m.id === id);
+const saveCart = () => localStorage.setItem('ngopikuy_cart', JSON.stringify(cart));
+
+function showToast(msg) {
+  const el = document.getElementById('toastEl');
+  document.getElementById('toastMsg').textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2500);
+}
+
+/* ─── Render ─── */
+function render() {
+  const container = document.getElementById('cartItems');
+  const totalItems = cart.reduce((a, b) => a + b.qty, 0);
+  document.getElementById('headerCount').textContent =
+    totalItems > 0 ? totalItems + ' item dalam keranjang' : 'Keranjang masih kosong';
+  document.getElementById('cartCount').textContent = totalItems;
+
+  if (cart.length === 0) {
+    container.innerHTML = `
+      <div class="empty-cart">
+        <i class="bi bi-cart-x"></i>
+        <h5>Keranjang kamu kosong</h5>
+        <p class="mt-2" style="font-size:13px;">Yuk tambahkan menu favoritmu!</p>
+        <a href="produk.html" class="btn btn-warning mt-3 fw-bold px-4">Lihat Menu</a>
+      </div>`;
+    document.getElementById('promoSection').style.display = 'none';
+    document.getElementById('summaryCard').style.display = 'none';
+    renderRecommended();
+    return;
+  }
+
+  container.innerHTML = cart.map(item => {
+    const m = getMenu(item.id);
+    if (!m) return '';
+    return `
+    <div class="cart-item d-flex align-items-center gap-3">
+      <img src="${m.img}" alt="${m.name}">
+      <div class="flex-grow-1">
+        <div class="item-name">${m.name}</div>
+        <div class="item-variant">${m.variant}</div>
+        <div class="item-price">${fmt(m.price)}</div>
+        <div class="item-subtotal">Subtotal: ${fmt(m.price * item.qty)}</div>
+      </div>
+      <div class="d-flex flex-column align-items-end gap-2">
+        <button class="btn-remove" onclick="removeItem(${item.id})" title="Hapus">
+          <i class="bi bi-trash3"></i>
+        </button>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="changeQty(${item.id}, -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty(${item.id}, 1)">+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('promoSection').style.display = 'block';
+  document.getElementById('summaryCard').style.display = 'block';
+  renderSummary();
+  renderRecommended();
+}
+
+function renderSummary() {
+  const sub = cart.reduce((a, b) => {
+    const m = getMenu(b.id);
+    return a + (m ? m.price * b.qty : 0);
+  }, 0);
+  const discAmt = promoApplied ? Math.round(sub * discountRate) : 0;
+  const tax = Math.round((sub - discAmt) * 0.1);
+  const total = sub - discAmt + tax;
+
+  document.getElementById('sumSubtotal').textContent = fmt(sub);
+  document.getElementById('sumTax').textContent = fmt(tax);
+  document.getElementById('sumTotal').textContent = fmt(total);
+
+  const drow = document.getElementById('sumDiscRow');
+  if (promoApplied && discAmt > 0) {
+    drow.style.display = 'flex';
+    document.getElementById('sumDiscount').textContent = '−' + fmt(discAmt);
+  } else {
+    drow.style.display = 'none';
+  }
+
+  document.getElementById('summaryItems').innerHTML = cart.map(item => {
+    const m = getMenu(item.id);
+    if (!m) return '';
+    return `<div class="summary-row" style="font-size:13px;">
+      <span style="color:#ccc;">${m.name} ×${item.qty}</span>
+      <span>${fmt(m.price * item.qty)}</span>
+    </div>`;
+  }).join('');
+}
+
+function renderRecommended() {
+  const inCartIds = cart.map(c => c.id);
+  const recs = MENU_DATA.filter(m => !inCartIds.includes(m.id)).slice(0, 3);
+  const sec = document.getElementById('recSection');
+  if (recs.length === 0) { sec.style.display = 'none'; return; }
+  sec.style.display = 'block';
+  document.getElementById('recGrid').innerHTML = recs.map(m => `
+    <div class="col-4">
+      <div class="rec-card">
+        <img src="${m.img}" alt="${m.name}">
+        <div class="rec-body">
+          <div class="rec-name">${m.name}</div>
+          <div class="rec-price">${fmt(m.price)}</div>
+          <button class="rec-add" onclick="addFromRec(${m.id})">
+            <i class="bi bi-plus-circle me-1"></i>Tambah
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+
+function changeQty(id, delta) {
+  const item = cart.find(c => c.id === id);
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  saveCart();
+  render();
+}
+
+function removeItem(id) {
+  cart = cart.filter(c => c.id !== id);
+  promoApplied = false; discountRate = 0;
+  document.getElementById('promoInput') && (document.getElementById('promoInput').value = '');
+  document.getElementById('promoMsg') && (document.getElementById('promoMsg').textContent = '');
+  saveCart();
+  render();
+  showToast('Item dihapus dari keranjang');
+}
+
+function addFromRec(id) {
+  const existing = cart.find(c => c.id === id);
+  if (existing) { existing.qty++; }
+  else { cart.push({ id, qty: 1 }); }
+  saveCart();
+  render();
+  const m = getMenu(id);
+  showToast((m ? m.name : 'Item') + ' ditambahkan ke keranjang!');
+}
+
+function applyPromo() {
+  const code = document.getElementById('promoInput').value.trim().toUpperCase();
+  const msg = document.getElementById('promoMsg');
+  if (PROMOS[code] !== undefined) {
+    promoApplied = true;
+    discountRate = PROMOS[code];
+    msg.style.color = '#4caf7d';
+    msg.innerHTML = `<i class="bi bi-check-circle me-1"></i>Promo <strong>${code}</strong> berhasil! Diskon ${Math.round(discountRate * 100)}% diterapkan.`;
+  } else {
+    promoApplied = false; discountRate = 0;
+    msg.style.color = '#e74c3c';
+    msg.innerHTML = `<i class="bi bi-x-circle me-1"></i>Kode promo tidak valid.`;
+  }
+  renderSummary();
+}
+
+function showCheckoutModal() {
+  const sub = cart.reduce((a, b) => {
+    const m = getMenu(b.id); return a + (m ? m.price * b.qty : 0);
+  }, 0);
+  const discAmt = promoApplied ? Math.round(sub * discountRate) : 0;
+  const tax = Math.round((sub - discAmt) * 0.1);
+  const total = sub - discAmt + tax;
+
+  document.getElementById('modalOrderLines').innerHTML =
+    cart.map(item => {
+      const m = getMenu(item.id);
+      if (!m) return '';
+      return `<div class="order-line"><span>${m.name} ×${item.qty}</span><span>${fmt(m.price * item.qty)}</span></div>`;
+    }).join('') +
+    (discAmt > 0 ? `<div class="order-line" style="color:#4caf7d;"><span>Diskon Promo</span><span>−${fmt(discAmt)}</span></div>` : '') +
+    `<div class="order-line"><span>Pajak (10%)</span><span>${fmt(tax)}</span></div>`;
+
+  document.getElementById('modalTotal').textContent = fmt(total);
+  new bootstrap.Modal(document.getElementById('checkoutModal')).show();
+}
+
+function placeOrder() {
+  bootstrap.Modal.getInstance(document.getElementById('checkoutModal')).hide();
+  setTimeout(() => {
+    new bootstrap.Modal(document.getElementById('successModal')).show();
+  }, 300);
+}
+
+function resetOrder() {
+  cart = [];
+  promoApplied = false; discountRate = 0;
+  saveCart();
+  bootstrap.Modal.getInstance(document.getElementById('successModal')).hide();
+  render();
+}
+
+
+render();
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const pi = document.getElementById('promoInput');
+  if (pi) pi.addEventListener('keydown', e => { if (e.key === 'Enter') applyPromo(); });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produk Kami – Ngopikuy</title>
+  <link rel="stylesheet" href="style1.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body { background-color: #1a1a1a; color: #f0f0f0; }
+    .produk-banner {
+      height: 50vh;
+      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('asset/dawwas.jpg') center/cover no-repeat;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .product-card {
+      background-color: #2a2a2a; border: 1px solid #3a3a3a; border-radius: 12px;
+      overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; height: 100%;
+    }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
+    .product-img { height: 220px; object-fit: cover; width: 100%; }
+    .product-body { display: flex; flex-direction: column; flex-grow: 1; padding: 1rem; }
+    .product-title { color: #f0f0f0; font-weight: 600; }
+    .product-desc { color: #aaa; font-size: 0.875rem; }
+    .product-price { color: #ffc107; font-weight: 700; margin-top: auto; margin-bottom: 0.75rem; }
+    .btn-detail {
+      background-color: transparent; border: 1px solid #ffc107; color: #ffc107;
+      border-radius: 8px; transition: 0.2s;
+    }
+    .btn-detail:hover { background-color: #ffc107; color: #000; }
+    .btn-beli {
+      background-color: #ffc107; border: none; color: #000;
+      font-weight: 600; border-radius: 8px; transition: 0.2s;
+    }
+    .btn-beli:hover { background-color: #e0a800; }
+    .list-group-item { background-color: #2a2a2a; border-color: #3a3a3a; color: #ccc; cursor: pointer; }
+    .list-group-item.active { background-color: #ffc107; border-color: #ffc107; color: #000; font-weight: 600; }
+    .modal-content { background-color: #222; border: 1px solid #3a3a3a; color: #f0f0f0; border-radius: 16px; }
+    .modal-header { border-bottom: 1px solid #3a3a3a; }
+    .modal-footer { border-top: 1px solid #3a3a3a; }
+    .modal-img { width: 100%; height: 280px; object-fit: cover; border-radius: 12px; margin-bottom: 1rem; }
+    .modal-price { color: #ffc107; font-size: 1.5rem; font-weight: 700; }
+    .modal-badge {
+      display: inline-block; background-color: #333; color: #ffc107; border: 1px solid #ffc107;
+      border-radius: 20px; padding: 2px 12px; font-size: 0.78rem; margin-right: 4px; margin-bottom: 4px;
+    }
+    .social-icon { font-size: 1.5rem; color: #aaa; transition: 0.2s; }
+    .social-icon:hover { color: #ffc107; }
+  </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg fixed-top" style="background-color:#1a1a1a;" data-bs-theme="dark">
+  <div class="container-fluid">
+    <a class="navbar-brand text-warning fw-bold" href="index.html">Ngopikuy</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto ms-2">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="produk.html">Produk</a></li>
+        <li class="nav-item"><a class="nav-link" href="promo.html">Promo</a></li>
+      </ul>
+      <form class="d-flex" role="search">
+        <input class="form-control me-2" type="search" id="searchInput" placeholder="Cari produk...">
+        <button class="btn btn-outline-warning" type="button" onclick="filterSearch()">Cari</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="produk-banner" style="margin-top:56px;">
+  <div class="text-center px-3">
+    <h1 class="text-white fw-bold">Ngobrol Asik Dimulai Dari Secangkir Kopi</h1>
+    <p class="text-warning mt-2">Temukan minuman favoritmu</p>
+  </div>
+</div>
+
+<div class="container-fluid py-5" style="background-color:#1a1a1a;">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-4 col-lg-3 mb-5">
+        <h5 class="text-warning mb-3">Kategori Produk</h5>
+        <ul class="list-group" id="kategoriList">
+          <li class="list-group-item active" data-filter="all" onclick="filterKategori(this,'all')">Semua</li>
+          <li class="list-group-item" data-filter="coffee" onclick="filterKategori(this,'coffee')">Coffee</li>
+          <li class="list-group-item" data-filter="noncoffee" onclick="filterKategori(this,'noncoffee')">Non Coffee</li>
+        </ul>
+      </div>
+
+      <div class="col-md-8 col-lg-9">
+        <div class="row g-4" id="productGrid">
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="coffee" data-name="cappuccino">
+            <div class="card product-card">
+              <img src="asset/Cappuccino.jpg" class="product-img" alt="Cappuccino">
+              <div class="product-body">
+                <h5 class="product-title">Cappuccino</h5>
+                <p class="product-desc">Perpaduan espresso, susu panas, dan busa susu yang lembut.</p>
+                <p class="product-price">Rp 20.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Cappuccino','asset/Cappuccino.jpg','Rp 20.000','Perpaduan sempurna antara espresso pekat, susu panas yang creamy, dan busa susu lembut di atasnya. Cocok untuk kamu yang suka kopi dengan tekstur ringan namun berkarakter.',['Coffee','Medium Roast','Hot/Ice'],'200ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="coffee" data-name="latte">
+            <div class="card product-card">
+              <img src="asset/Latte.jpg" class="product-img" alt="Latte">
+              <div class="product-body">
+                <h5 class="product-title">Latte</h5>
+                <p class="product-desc">Espresso dengan susu steamed yang creamy dan lembut.</p>
+                <p class="product-price">Rp 23.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Latte','asset/Latte.jpg','Rp 23.000','Latte klasik dengan shot espresso yang kuat dipadukan susu steamed berkualitas tinggi. Menghasilkan rasa yang creamy, smooth, dan sedikit manis — sempurna untuk menemani pagi harimu.',['Coffee','Mild Roast','Hot/Ice'],'250ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="noncoffee" data-name="matcha latte">
+            <div class="card product-card">
+              <img src="asset/matcha.jpg" class="product-img" alt="Matcha Latte">
+              <div class="product-body">
+                <h5 class="product-title">Matcha Latte</h5>
+                <p class="product-desc">Matcha premium Jepang dengan susu segar pilihan.</p>
+                <p class="product-price">Rp 23.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Matcha Latte','asset/matcha.jpg','Rp 23.000','Dibuat dari bubuk matcha premium grade ceremonial asal Jepang, dicampur dengan susu segar pilihan. Rasanya earthy, sedikit pahit, dan creamy — pilihan sempurna untuk non-coffee lover.',['Non Coffee','Healthy','Hot/Ice'],'250ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="coffee" data-name="kopi espresso">
+            <div class="card product-card">
+              <img src="asset/download.jpg" class="product-img" alt="Kopi Espresso">
+              <div class="product-body">
+                <h5 class="product-title">Kopi Espresso</h5>
+                <p class="product-desc">Shot espresso murni dengan cita rasa kuat dan bold.</p>
+                <p class="product-price">Rp 23.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Kopi Espresso','asset/download.jpg','Rp 23.000','Espresso murni tanpa campuran — ekstraksi biji kopi pilihan yang diseduh dengan tekanan tinggi menghasilkan rasa pekat, bold, dan aroma yang kuat. Untuk kamu yang suka kopi pure.',['Coffee','Dark Roast','Hot'],'60ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="coffee" data-name="americano">
+            <div class="card product-card">
+              <img src="asset/The Classic Hot Americano.jpg" class="product-img" alt="Americano">
+              <div class="product-body">
+                <h5 class="product-title">Americano</h5>
+                <p class="product-desc">Espresso diencerkan dengan air panas, ringan namun berkarakter.</p>
+                <p class="product-price">Rp 20.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Americano','asset/The Classic Hot Americano.jpg','Rp 20.000','Shot espresso yang diencerkan dengan air panas berkualitas. Menghasilkan kopi yang lebih ringan dari espresso namun tetap punya karakter rasa yang kuat. Pilihan klasik yang tidak pernah salah.',['Coffee','Medium Roast','Hot/Ice'],'300ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="noncoffee" data-name="rose latte">
+            <div class="card product-card">
+              <img src="asset/Rose latte.jpg" class="product-img" alt="Rose Latte">
+              <div class="product-body">
+                <h5 class="product-title">Rose Latte</h5>
+                <p class="product-desc">Sirup bunga mawar segar dipadukan susu creamy.</p>
+                <p class="product-price">Rp 25.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Rose Latte','asset/Rose latte.jpg','Rp 25.000','Perpaduan sirup bunga mawar alami dengan susu steamed yang lembut. Aromanya harum, rasanya manis floral yang menenangkan. Minuman yang instagramable dan enak sekaligus!',['Non Coffee','Floral','Hot/Ice'],'250ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="noncoffee" data-name="purple taro latte">
+            <div class="card product-card">
+              <img src="asset/Purple Taro Latte Recipe.jpg" class="product-img" alt="Purple Taro Latte">
+              <div class="product-body">
+                <h5 class="product-title">Purple Taro Latte</h5>
+                <p class="product-desc">Minuman taro ungu yang creamy dengan tampilan menawan.</p>
+                <p class="product-price">Rp 25.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Purple Taro Latte','asset/Purple Taro Latte Recipe.jpg','Rp 25.000','Dibuat dari pasta taro ungu asli yang dicampur susu segar menghasilkan warna ungu yang cantik dan rasa manis yang khas. Cocok untuk kamu yang ingin minuman unik dan enak.',['Non Coffee','Sweet','Hot/Ice'],'250ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-6 col-lg-4 product-item" data-category="noncoffee" data-name="bubblegum milkshake">
+            <div class="card product-card">
+              <img src="asset/Bubblegum milkshake (1).jpg" class="product-img" alt="Bubblegum Milkshake">
+              <div class="product-body">
+                <h5 class="product-title">Bubblegum Milkshake</h5>
+                <p class="product-desc">Milkshake segar dengan rasa bubblegum yang fun dan manis.</p>
+                <p class="product-price">Rp 28.000</p>
+                <div class="d-flex gap-2">
+                  <button class="btn btn-detail flex-fill" onclick="showDetail('Bubblegum Milkshake','asset/Bubblegum milkshake (1).jpg','Rp 28.000','Milkshake tebal dengan rasa bubblegum yang playful dan menyenangkan. Dibuat dari susu segar, es krim vanilla premium, dan sirup bubblegum. Cocok untuk segala usia!',['Non Coffee','Sweet','Cold'],'350ml')">
+                    <i class="bi bi-eye me-1"></i>Lihat
+                  </button>
+                  <button class="btn btn-beli flex-fill"><i class="bi bi-cart-plus me-1"></i>Beli</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div id="emptyState" class="text-center py-5 d-none">
+          <i class="bi bi-search fs-1 text-secondary"></i>
+          <p class="text-secondary mt-3">Produk tidak ditemukan.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalDetail" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-warning" id="modalNama"></h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" src="" alt="" class="modal-img">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <span class="modal-price" id="modalHarga"></span>
+          <span class="text-secondary" id="modalVolume" style="font-size:0.875rem;"></span>
+        </div>
+        <p id="modalDeskripsi" class="mb-3" style="color:#ccc; line-height:1.7;"></p>
+        <div id="modalBadges"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+        <button type="button" class="btn btn-beli px-4"><i class="bi bi-cart-plus me-1"></i>Tambah ke Keranjang</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid py-4" style="background-color:#111;">
+  <h5 class="text-center text-white mb-4">Temui Kami Di</h5>
+  <div class="d-flex justify-content-center gap-4 mb-4">
+    <a href="https://facebook.com" target="_blank" class="social-icon"><i class="bi bi-facebook"></i></a>
+    <a href="https://instagram.com" target="_blank" class="social-icon"><i class="bi bi-instagram"></i></a>
+    <a href="https://twitter.com" target="_blank" class="social-icon"><i class="bi bi-twitter"></i></a>
+    <a href="https://youtube.com" target="_blank" class="social-icon"><i class="bi bi-youtube"></i></a>
+  </div>
+</div>
+
+<footer class="py-5" style="background-color:#111; color:#ddd;">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <h5 class="text-warning fw-bold">Ngopikuy</h5>
+        <p class="small text-secondary">Ngobrol Asik Dimulai Dari Secangkir Kopi</p>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Navigasi</h6>
+        <ul class="list-unstyled small">
+          <li><a href="index.html" class="text-secondary text-decoration-none">Home</a></li>
+          <li><a href="produk.html" class="text-secondary text-decoration-none">Produk</a></li>
+          <li><a href="promo.html" class="text-secondary text-decoration-none">Promo</a></li>
+        </ul>
+      </div>
+      <div class="col-md-4 mb-4">
+        <h6 class="fw-bold mb-3">Kontak</h6>
+        <ul class="list-unstyled small text-secondary">
+          <li class="mb-2"><i class="bi bi-geo-alt-fill me-2"></i>Jl. blablabla</li>
+          <li class="mb-2"><i class="bi bi-telephone-fill me-2"></i>+62 13456789</li>
+          <li><i class="bi bi-envelope-fill me-2"></i>ngopikuy@gmail.com</li>
+        </ul>
+      </div>
+    </div>
+    <hr style="border-color:#333;">
+    <p class="text-center small text-secondary mb-0">&copy; 2025 Ngopikuy. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  function showDetail(nama, img, harga, deskripsi, tags, volume) {
+    document.getElementById('modalNama').textContent = nama;
+    document.getElementById('modalImg').src = img;
+    document.getElementById('modalImg').alt = nama;
+    document.getElementById('modalHarga').textContent = harga;
+    document.getElementById('modalDeskripsi').textContent = deskripsi;
+    document.getElementById('modalVolume').textContent = volume;
+    document.getElementById('modalBadges').innerHTML = tags.map(t => `<span class="modal-badge">${t}</span>`).join('');
+    new bootstrap.Modal(document.getElementById('modalDetail')).show();
+  }
+
+  function filterKategori(el, filter) {
+    document.querySelectorAll('#kategoriList .list-group-item').forEach(li => li.classList.remove('active'));
+    el.classList.add('active');
+    let visible = 0;
+    document.querySelectorAll('.product-item').forEach(item => {
+      const match = filter === 'all' || item.dataset.category === filter;
+      item.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    document.getElementById('emptyState').classList.toggle('d-none', visible > 0);
+  }
+
+  function filterSearch() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    let visible = 0;
+    document.querySelectorAll('.product-item').forEach(item => {
+      const match = item.dataset.name.includes(q);
+      item.style.display = match ? '' : 'none';
+      if (match) visible++;
+    });
+    document.getElementById('emptyState').classList.toggle('d-none', visible > 0);
+  }
+
+  document.getElementById('searchInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') filterSearch();
+  });
+</script>
+</body>
+</html>

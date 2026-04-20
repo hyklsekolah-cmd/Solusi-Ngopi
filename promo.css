@@ -1,0 +1,75 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #ede1e1;
+}
+
+
+
+.countdown-label {
+  font-size: 13px;
+  letter-spacing: 2px;
+}
+
+.countdown-box {
+  font-size: 28px;
+  min-width: 64px;
+  padding: 8px 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown-blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+
+
+.filter-btn {
+  font-size: 14px;
+  padding: 6px 20px;
+  border-radius: 20px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+
+/* === PROMO CARD === */
+.promo-card {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  border-color: #ffc107 !important;
+}
+
+.promo-img {
+  height: 180px;
+  object-fit: cover;
+}
+
+.promo-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 11px;
+  z-index: 1;
+  border-radius: 6px;
+  padding: 4px 10px;
+}
+
+.promo-desc {
+  font-size: 13px;
+}
+
+.promo-price-old {
+  font-size: 13px;
+}

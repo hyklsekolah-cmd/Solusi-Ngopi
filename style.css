@@ -1,0 +1,340 @@
+    .about {
+     background-color: #000;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93') center/cover no-repeat;
+      height: 100vh;
+      position: relative;
+    }
+
+    .hero-overlay {
+      background: rgba(0,0,0,0.6);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: rgb(252, 250, 250);
+    }
+
+    /* MENU SLIDER */
+    .menu-wrapper {
+      position: relative;
+    }
+
+    .menu-container {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 1rem;
+      padding-bottom: 10px;
+    }
+
+    .menu-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .menu-card {
+      min-width: 300px;
+      flex: 0 0 auto;
+    }
+
+    .menu-card img {
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    
+
+    .scroll-btn {
+      position: absolute;
+      top: 40%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background-color: #212529;
+      color: rgb(255, 255, 255);
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+    }
+
+    .scroll-left {
+      left: -20px;
+    }
+
+    .scroll-right {
+      right: -20px;
+    }
+
+    
+  
+    footer {
+      background-color: #212529;
+      color: white;
+      padding: 20px 0;
+    }
+
+    .testimony {
+      background-color: rgb(63, 32, 19);
+    }
+
+    .testimony-card {
+      background-color: rgba(255, 255, 255, 0.07) !important;
+      border: 1px solid rgba(255, 255, 255, 0.5) !important;
+      border-radius:  16px;
+      padding: 28px;
+      transition: .3s;
+      height: 100%;
+    }
+
+    .testimony-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.13);
+      border-color: rgba(255, 255, 255, 0.03);
+    }
+
+    .testimony-card .quote-icon {
+      font-size: 2rm;
+      color: rgb(255, 255, 255);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .testimony-card h5 {
+      font-size: 1rm;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .testimony-card .author {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.55);
+      margin-bottom: 12px;
+    }
+
+    .testimony-card p {
+      font-size:  0.88rem;
+      color: rgb(255, 255, 255);
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+
+    .testimony-card {
+      background: rgba(255, 255, 255, 0.07) !important;
+      border: 1px  solid rgba(255, 255, 255, 0.15) !important;
+      border-radius: 16px;
+      padding: 28px;
+      transition: .3s;
+      height: 100%;
+    }
+
+    .testimony .stars {
+      font-size: 0.95rem;
+      color: yellow;
+    }
+
+  .landscape {
+    aspect-ratio: 16 / 9;
+  }
+   
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: #111;
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: #000;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #d4a373;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.menu li a {
+    text-decoration: none;
+    color: white;
+    transition: 0.3s;
+}
+
+.menu li a:hover {
+    color: #d4a373;
+}
+
+/* Section */
+.temui-kami {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, #ffffff, #222);
+}
+
+.temui-kami h2 {
+    font-size: 40px;
+    margin-bottom: 34px;
+}
+
+/* Social Media */
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.social-icons a {
+    font-size: 28px;
+    color: white;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    color: #d4a373;
+}
+
+/* Subscribe */
+.subscribe h3 {
+    font-size: 35px;
+    margin-bottom: 10px;
+}
+
+.subscribe p {
+    margin-bottom: 25px;
+    color: #ccc;
+}
+
+.subscribe-box {
+    display: flex;
+    justify-content: center;
+    max-width: 600px;
+    margin: auto;
+}
+
+.subscribe-box input {
+    width: 70%;
+    padding: 15px;
+    border: none;
+    outline: none;
+    border-radius: 8px 0 0 8px;
+}
+
+.subscribe-box button {
+    width: 30%;
+    background: #c1121f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 0 8px 8px 0;
+    transition: 0.3s;
+}
+
+.subscribe-box button:hover {
+    background: #9d0208;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .menu {
+        display: none;
+    }
+
+    .subscribe-box {
+        flex-direction: column;
+    }
+
+    .subscribe-box input,
+    .subscribe-box button {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+    }
+}
+
+.footer {
+    background: #1f252b;
+    color: #ddd;
+    padding: 50px 40px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 250px;
+}
+
+.footer-col h2 {
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.footer-col h3 {
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.footer-col p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #bbb;
+}
+
+.footer-col ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-col ul li {
+    margin-bottom: 8px;
+}
+
+.footer-col ul li a {
+    text-decoration: none;
+    color: #bbb;
+    transition: 0.3s;
+}
+
+.footer-col ul li a:hover {
+    color: #ffffff;
+}
+
+.footer-bottom {
+    border-top: 1px solid #3a3f44;
+    margin-top: 30px;
+    padding-top: 15px;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+    }
+}

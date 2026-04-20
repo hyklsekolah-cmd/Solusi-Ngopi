@@ -1,0 +1,61 @@
+.col-sm-6.col-lg-3 {
+  display: flex;
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s ease;
+}
+
+
+.card-img-top {
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+
+.card-body h4 {
+  margin-top: auto;
+}
+
+
+.dropdown {
+  margin-top: 10px;
+}
+
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.card {
+  height: 100%;
+}
+
+.product-img {
+  height: 250px;
+  object-fit: cover;
+}
+
+.produk-banner {
+    height: 50vh;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("dawwas.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+/* footer */
